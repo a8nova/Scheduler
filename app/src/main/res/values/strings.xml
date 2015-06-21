@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Scheduler</string>
+
+    <string name="email">email</string>
+    <string name="password">password</string>
+    <string name="goButton">Goo!</string>
+    <string name="person_name"></string>
+</resources>
