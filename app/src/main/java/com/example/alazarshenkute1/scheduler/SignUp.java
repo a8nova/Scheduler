@@ -56,8 +56,6 @@ public class SignUp extends Activity {
         Toast.makeText(getBaseContext(),
                 "saved!",
                 Toast.LENGTH_SHORT).show();
-
-        //startActivity( new Intent( this, UploadPictu2re.class ) );
     }
 
 }

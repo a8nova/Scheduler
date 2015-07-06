@@ -23,9 +23,10 @@ public class MainActivity extends Activity {
     }
 
     // invoke the log in activity if log in button pressed
-    public void logInButtonPressed( View view ){
-        startActivity( new Intent(this, LogIn.class ));
+    public void logInButtonPressed( View view ) {
+        startActivity( new Intent( this, LogIn.class ));
     }
+
     // invoke sign up activity if sign up button pressed
     public void signUpButtonPressed( View view ) {
         startActivity( new Intent( this, SignUp.class ));
