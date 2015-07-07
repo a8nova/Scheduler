@@ -1,16 +1,12 @@
 package com.example.alazarshenkute1.scheduler;
 
 
-import android.app.Activity;
+import android.app.ListActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
+import android.widget.ListView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-public class Dashboard extends Activity {
+public class Dashboard extends ListActivity {
 
 
     String [] workScheduleArray = {
@@ -26,15 +22,10 @@ public class Dashboard extends Activity {
     public void onCreate( Bundle savedInstanceState )
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dashboard);
+        setContentView( R.layout.dashboard );
 
-        TextView listView = (TextView) findViewById( R.id.textView );
-        List<String> list = new ArrayList<String>( Arrays.asList( workScheduleArray ) );
-        // intilaize adapter
-        ArrayAdapter<String> scheduleAdapter =
-                new ArrayAdapter<String>( this, R.layout.dashboard, R.id.textView, list );
-
-
+        ListView list = getListView();
+        setListAdapter( new ArrayAdapter<String>( this, android.R.layout.simple_list_item_1, workScheduleArray ) );
     }
 
 }
