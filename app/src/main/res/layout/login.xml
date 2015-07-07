@@ -29,9 +29,12 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/logInButton"
-        android:layout_centerVertical="true"
+        android:id="@+id/submitButton"
+        android:text="@string/LogInSubmitButton"
+        android:onClick="submitButtonPressed"
+        android:layout_below="@+id/logInPassword"
         android:layout_alignRight="@+id/logInPassword"
         android:layout_alignEnd="@+id/logInPassword"
-        android:text="@string/LogInSubmitButton" />
+        android:layout_marginTop="77dp" />
+
 </RelativeLayout>

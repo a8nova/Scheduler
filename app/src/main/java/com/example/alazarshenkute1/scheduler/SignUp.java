@@ -12,6 +12,7 @@ package com.example.alazarshenkute1.scheduler;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,7 +23,6 @@ public class SignUp extends Activity {
     private static final String EMAIL_KEY = "email";
     private static final String NAME_KEY = "name";
     private static final String PASSWORD_KEY = "passWord";
-    private static final String PICTURE_KEY = "picture";
 
     // name of XML file in which all the data will be saved
     private SharedPreferences preferences = null;
@@ -45,12 +45,14 @@ public class SignUp extends Activity {
                         (EditText)findViewById( R.id.name ),
                         (EditText)findViewById( R.id.passwd )
                 };
-        preferences = getPreferences( MODE_PRIVATE );
+        // dont have to worry about the file name
+        // can access it from any class by calling getDefault
+        preferences = PreferenceManager.getDefaultSharedPreferences( this );
         SharedPreferences.Editor editor = preferences.edit(); // allows me to save key/value pairs
         editor.putString( EMAIL_KEY, editText[0].getText().toString() );
         editor.putString( NAME_KEY, editText[1].getText().toString() );
         editor.putString(PASSWORD_KEY, editText[2].getText().toString());
-        editor.commit();
+        editor.apply();
 
         //---display file saved message---
         Toast.makeText(getBaseContext(),

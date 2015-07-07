@@ -4,10 +4,11 @@
     <string name="email">email</string>
     <string name="password">password</string>
     <string name="goButton">Submit</string>
-    <string name="LogInSubmitButton">Log In</string>
+    <string name="LogInSubmitButton">Submit</string>
     <string name="logInPage">Log In</string>
     <string name="upLoadPicPage">UpLoad Picture</string>
     <string name="signUpButton"> Sign Up</string>
     <string name="logInButton">Log In</string>
     <string name="signupSupervisorCheckbox">Supervisor/Manager</string>
+    <string name="DashboardPage">Dashboard</string>
 </resources>

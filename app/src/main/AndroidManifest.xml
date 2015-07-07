@@ -46,6 +46,15 @@
             </intent-filter>
 
         </activity>
+        <!-- Dashboard class -->
+        <activity android:name=".Dashboard"
+            android:label="@string/DashboardPage">
+            <intent-filter>
+                <action android:name="net.learn2develop.Dashboard"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>
