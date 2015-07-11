@@ -71,12 +71,12 @@ public class SignupActivity extends Activity {
             isChecked = true;
         dbAdapter.open();
 
-        long id = dbAdapter.insertContact( editText[0].getText().toString(),
+        long id = dbAdapter.insertUser( editText[0].getText().toString(),
                                            editText[1].getText().toString(),
                                            editText[2].getText().toString(),
                                            isChecked );
         dbAdapter.close();
-        Log.e( TAG, editText[0].getText().toString() );
+        Log.e( TAG, String.valueOf(editText[0].getText()));
         //---display file saved message---
         Toast.makeText(getBaseContext(),
                 "saved!",

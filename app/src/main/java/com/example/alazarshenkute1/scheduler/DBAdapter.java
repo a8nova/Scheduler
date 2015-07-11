@@ -80,7 +80,7 @@ public class DBAdapter {
     }
 
     //---insert a contact into the database---
-    public long insertContact(String name, String email, String password, boolean value )
+    public long insertUser(String name, String email, String password, boolean value )
     {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_NAME, name);
