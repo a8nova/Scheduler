@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.alazarshenkute1.scheduler" >
 
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"></uses-permission>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,7 +19,7 @@
         </activity>
 
         <!-- SIGN UP PAGE ACTIVITY -->
-        <activity android:name=".SignUp">
+        <activity android:name=".SignupActivity">
 
             <intent-filter>
                 <action android:name="net.learn2develop.SignUp" />
@@ -27,7 +28,7 @@
         </activity>
 
         <!-- LOG IN PAGE ACTIVITY -->
-        <activity android:name=".LogIn"
+        <activity android:name=".LogInActivity"
             android:label="@string/logInPage" >
             <intent-filter>
                 <action android:name="net.learn2develop.LogIn" />
@@ -47,7 +48,7 @@
 
         </activity>
         <!-- Dashboard class -->
-        <activity android:name=".Dashboard"
+        <activity android:name=".DashboardActivity"
             android:label="@string/DashboardPage">
             <intent-filter>
                 <action android:name="net.learn2develop.Dashboard"/>

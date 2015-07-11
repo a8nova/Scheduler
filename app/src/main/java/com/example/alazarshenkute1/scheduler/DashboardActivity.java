@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class Dashboard extends ListActivity {
+public class DashboardActivity extends ListActivity {
 
 
     String [] workScheduleArray = {

@@ -19,17 +19,20 @@ public class MainActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView( R.layout.activity_main );
+        setContentView(R.layout.activity_main);
+
+
+
     }
 
     // invoke the log in activity if log in button pressed
     public void logInButtonPressed( View view ) {
-        startActivity( new Intent( this, LogIn.class ));
+        startActivity( new Intent( this, LogInActivity.class ));
     }
 
     // invoke sign up activity if sign up button pressed
     public void signUpButtonPressed( View view ) {
-        startActivity( new Intent( this, SignUp.class ));
+        startActivity( new Intent( this, SignupActivity.class ));
     }
 
 
