@@ -5,11 +5,10 @@
 package com.example.alazarshenkute1.scheduler;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 public class LogInActivity extends Activity {
     // Keys for retrieving user data
@@ -37,15 +36,26 @@ public class LogInActivity extends Activity {
 
         // check if both username and password match
         // get the data entered if any
-        SharedPreferences sharedPref = LogInActivity.this.getPreferences( Context.MODE_PRIVATE);
-        email = sharedPref.getString( EMAIL_KEY  , DEFAULT_VALUE );
-        password = sharedPref.getString( PASSWORD_KEY, DEFAULT_VALUE );
-        Validate validator = new Validate();
-        if( validator.validateLogin( email, password ) == USER_FOUND )
-        {
-
+        DBAdapter dbAdapter = new DBAdapter( this );
+        dbAdapter.open();
+        Cursor cursor = dbAdapter.getAllUsers();
+        if( cursor.moveToFirst() ){
+            while( cursor.moveToNext() ){
+                displayUser( cursor );
+            }
         }
+        dbAdapter.close();
 
-        startActivity(new Intent( this, DashboardActivity.class ) );
+
+      //  startActivity(new Intent( this, DashboardActivity.class ) );
+    }
+
+    /** DELETE MEEE */
+    // check if records are saved in the database
+    private void displayUser(Cursor cursor) {
+            Toast.makeText(this, "" + cursor.getString(0) + "\n"
+                                    + cursor.getString(1) + "\n"
+                                    + cursor.getString(2) + "\n"
+                                    ,Toast.LENGTH_LONG).show();
     }
 }

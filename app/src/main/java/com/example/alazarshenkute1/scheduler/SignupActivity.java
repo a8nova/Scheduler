@@ -57,7 +57,7 @@ public class SignupActivity extends Activity {
     public void submitButtonPressed( View view ){
         // validate data
         // save data
-        Boolean isChecked = false;
+        String isChecked = "not";
         // get reference to EditText objects
         EditText []editText = {
                 (EditText) findViewById( R.id.name ),
@@ -68,15 +68,17 @@ public class SignupActivity extends Activity {
 
         CheckBox checkBox = (CheckBox )findViewById( R.id.checkBox );
         if( checkBox.isChecked() )
-            isChecked = true;
+            isChecked = "yes";
+
         dbAdapter.open();
 
         long id = dbAdapter.insertUser( editText[0].getText().toString(),
-                                           editText[1].getText().toString(),
-                                           editText[2].getText().toString(),
-                                           isChecked );
+                                        editText[1].getText().toString(),
+                                        editText[2].getText().toString(),
+                                        isChecked);
         dbAdapter.close();
-        Log.e( TAG, String.valueOf(editText[0].getText()));
+        String destPath = getFilesDir().getPath();
+        Log.e( TAG, destPath );
         //---display file saved message---
         Toast.makeText(getBaseContext(),
                 "saved!",
