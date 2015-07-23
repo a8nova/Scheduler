@@ -44,9 +44,9 @@ public class SignupActivity extends Activity {
                 CopyDB( getBaseContext().getAssets().open("mydb"),
                         new FileOutputStream(destPath));
             }
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e ) {
             e.printStackTrace();
-        } catch (IOException e) {
+        } catch ( IOException e ) {
             e.printStackTrace();
         }
 
@@ -63,26 +63,35 @@ public class SignupActivity extends Activity {
                 (EditText) findViewById( R.id.name ),
                 (EditText) findViewById( R.id.email ),
                 (EditText) findViewById( R.id.passwd ),
-
         };
 
         CheckBox checkBox = (CheckBox )findViewById( R.id.checkBox );
         if( checkBox.isChecked() )
             isChecked = "yes";
 
-        dbAdapter.open();
+        // validate email and password
+        if( Validate.validateSignUp(
+                        editText[1].getText().toString(),
+                        editText[2].getText().toString())  ) {
 
-        long id = dbAdapter.insertUser( editText[0].getText().toString(),
-                                        editText[1].getText().toString(),
-                                        editText[2].getText().toString(),
-                                        isChecked);
-        dbAdapter.close();
-        String destPath = getFilesDir().getPath();
-        Log.e( TAG, destPath );
-        //---display file saved message---
-        Toast.makeText(getBaseContext(),
-                "saved!",
-                Toast.LENGTH_SHORT).show();
+            dbAdapter.open();
+
+            long id = dbAdapter.insertUser( editText[0].getText().toString(),
+                                            editText[1].getText().toString(),
+                                            editText[2].getText().toString(),
+                    isChecked );
+            dbAdapter.close();
+            String destPath = getFilesDir().getPath();
+            Log.e( TAG, destPath );
+            //---display file saved message---
+            Toast.makeText(getBaseContext(),
+                    "saved!",
+                    Toast.LENGTH_SHORT).show();
+
+            dbAdapter.close();
+        }else{
+            Toast.makeText( this,"Invalid Username or Password", Toast.LENGTH_SHORT ).show();
+        }
     }
 
     public void CopyDB(InputStream inputStream, OutputStream outputStream) throws IOException
@@ -90,7 +99,7 @@ public class SignupActivity extends Activity {
         //---copy 1K bytes at a time---
         byte[] buffer = new byte[1024];
         int length;
-        while ((length = inputStream.read(buffer)) > 0) {
+        while ((length = inputStream.read(buffer)) > 0 ) {
             outputStream.write( buffer, 0, length );
         }
         inputStream.close();

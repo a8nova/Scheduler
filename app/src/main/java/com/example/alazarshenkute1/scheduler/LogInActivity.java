@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class LogInActivity extends Activity {
@@ -36,10 +37,13 @@ public class LogInActivity extends Activity {
 
         // check if both username and password match
         // get the data entered if any
+        EditText login = (EditText) findViewById( R.id.logInEmail );
+        EditText password = (EditText) findViewById( R.id.logInPassword );
         DBAdapter dbAdapter = new DBAdapter( this );
         dbAdapter.open();
         Cursor cursor = dbAdapter.getAllUsers();
         if( cursor.moveToFirst() ){
+            displayUser( cursor );
             while( cursor.moveToNext() ){
                 displayUser( cursor );
             }

@@ -27,7 +27,7 @@ public class DBAdapter {
     private static final String DATABASE_CREATE =
             "create table users (_id integer primary key autoincrement, "
                     + "name text not null, email text not null, "
-                    + "password text not null, is_supervisor text not null );";
+                    + "password text not null, is_supervisor text not null);";
 
     private final Context context;
 
@@ -42,6 +42,7 @@ public class DBAdapter {
 
     private static class DatabaseHelper extends SQLiteOpenHelper
     {
+
         DatabaseHelper(Context context)
         {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);

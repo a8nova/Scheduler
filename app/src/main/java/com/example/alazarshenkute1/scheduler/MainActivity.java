@@ -20,7 +20,6 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
     }
 
     // invoke the log in activity if log in button pressed
@@ -32,6 +31,9 @@ public class MainActivity extends Activity {
     public void signUpButtonPressed( View view ) {
         startActivity( new Intent( this, SignupActivity.class ));
     }
+
+
+
 
 
 }

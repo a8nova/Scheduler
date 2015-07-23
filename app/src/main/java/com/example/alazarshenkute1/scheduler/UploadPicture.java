@@ -29,7 +29,7 @@ public class UploadPicture extends Activity {
         // load image
         /*******************************************************/
         Button buttonLoadImage = (Button) findViewById( R.id.buttonLoadPicture);
-        buttonLoadImage.setOnClickListener(new View.OnClickListener() {
+        buttonLoadImage.setOnClickListener( new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0)
