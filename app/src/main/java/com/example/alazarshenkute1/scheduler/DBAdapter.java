@@ -13,28 +13,48 @@ import android.database.SQLException;
 import android.util.Log;
 
 public class DBAdapter {
-    public static final String KEY_ROWID = "_id";
-    public static final String KEY_NAME = "name";
-    public static final String KEY_EMAIL = "email";
-    public static final String KEY_PASSWORD = "password";
-    public static final String KEY_SUPERVISOR = "is_supervisor";
+
     private static final String TAG = "DBAdapter";
 
-    private static final String DATABASE_NAME = "MyDB";
-    private static final String DATABASE_TABLE = "users";
-    private static final int DATABASE_VERSION = 3;
+    // columns of employees table
+    private static final String TABLE_EMPLOYEES = "employees";
+    private static final String COLUMN_EMPLOYEE_ID = "_id_employee";
+    private static final String COLUMN_EMPLOYEE_NAME = "name";
+    private static final String COLUMN_EMPLOYEE_EMAIL = "email";
+    private static final String COLUMN_EMPLOYEE_PASSWORD = "password";
+    private static final String COLUMN_EMPLOYEE_SUPERVISOR = "is_supervisor";
 
-    private static final String DATABASE_CREATE =
-            "create table users (_id integer primary key autoincrement, "
+   // columns of schedule employees
+    private static final String TABLE_SCHEDULE = "schedules";
+    private static final String COLUMN_SCHEDULE_ID = COLUMN_EMPLOYEE_ID;
+    private static final String COLUMN_SCHEDULE_DAY = "day";
+    private static final String COLUMN_SCHEDULE_START_SHIFT= "start_shift_time";
+    private static final String COLUMN_SCHEUDLE_END_SHIFT = "end_shift_time";
+    private static final String COLUMN_SCHEUDLE_DATE = "date";
+
+
+    private static final String DATABASE_NAME = "MyDB";
+
+    private static final int DATABASE_VERSION = 1;
+
+    private static final String SQL_CREATE_TABLE_EMPLOYEES =
+                    "create table employees "
+                    + "(_id_employee integer primary key autoincrement, "
                     + "name text not null, email text not null, "
                     + "password text not null, is_supervisor text not null);";
+
+    private static final String SQL_CREATE_TABLE_SCHEDULE =
+                    "create table schedules "
+                    + "(_id_schedule primary key autoincrement, "
+                    + "day text not null, start_shift_time text not null, "
+                    + "end_shift_time text not null, date text not null );";
 
     private final Context context;
 
     private DatabaseHelper DBHelper;
     private SQLiteDatabase db;
 
-    public DBAdapter(Context ctx)
+    public DBAdapter( Context ctx )
     {
         this.context = ctx;
         DBHelper = new DatabaseHelper(context);
@@ -52,7 +72,8 @@ public class DBAdapter {
         public void onCreate(SQLiteDatabase db)
         {
             try {
-                db.execSQL(DATABASE_CREATE);
+                db.execSQL(SQL_CREATE_TABLE_EMPLOYEES);
+                db.execSQL(SQL_CREATE_TABLE_SCHEDULE);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -63,7 +84,8 @@ public class DBAdapter {
         {
             Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
                     + newVersion + ", which will destroy all old data");
-            db.execSQL("DROP TABLE IF EXISTS users");
+            db.execSQL("DROP TABLE IF EXISTS employees");
+            db.execSQL("DROP TABLE IF EXISTS schedules");
             onCreate(db);
         }
     }
@@ -85,31 +107,47 @@ public class DBAdapter {
     public long insertUser(String name, String email, String password, String value )
     {
         ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_NAME, name);
-        initialValues.put(KEY_EMAIL, email);
-        initialValues.put(KEY_PASSWORD, password );
-        initialValues.put(KEY_SUPERVISOR, value );
-        return db.insert(DATABASE_TABLE, null, initialValues);
+        initialValues.put(COLUMN_EMPLOYEE_NAME, name);
+        initialValues.put(COLUMN_EMPLOYEE_EMAIL, email);
+        initialValues.put(COLUMN_EMPLOYEE_PASSWORD, password );
+        initialValues.put(COLUMN_EMPLOYEE_SUPERVISOR, value);
+        return db.insert( TABLE_EMPLOYEES, null, initialValues);
     }
-    //---deletes a particular contact---
+    //--- insert a schedule into the database
+    public long insertSchedule( String day, String start_shift, String end_shift, String date )
+    {
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(COLUMN_SCHEDULE_DAY, day );
+        initialValues.put(COLUMN_SCHEDULE_START_SHIFT, start_shift);
+        initialValues.put(COLUMN_SCHEUDLE_END_SHIFT, end_shift );
+        initialValues.put(COLUMN_SCHEUDLE_DATE, date );
+        return db.insert(TABLE_SCHEDULE, null, initialValues );
+
+    }
+    //--- delete a schedule from database
+    public boolean deleteSchedule( long rowId )
+    {
+        return db.delete( TABLE_SCHEDULE, COLUMN_SCHEDULE_ID + "=" + rowId, null ) > 0;
+    }
+    //---deletes a particular user---
     public boolean deleteUser(long rowId)
     {
-        return db.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
+        return db.delete(TABLE_EMPLOYEES, COLUMN_EMPLOYEE_ID + "=" + rowId, null) > 0;
     }
 
     //---retrieves all the contacts---
     public Cursor getAllUsers()
     {
-        return db.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME,
-                KEY_EMAIL}, null, null, null, null, null);
+        return db.query(TABLE_EMPLOYEES, new String[] {COLUMN_EMPLOYEE_ID, COLUMN_EMPLOYEE_NAME,
+                COLUMN_EMPLOYEE_EMAIL}, null, null, null, null, null);
     }
 
     //---retrieves a particular contact---
     public Cursor getUser(long rowId) throws SQLException
     {
         Cursor mCursor =
-                db.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
-                                KEY_NAME, KEY_EMAIL}, KEY_ROWID + "=" + rowId, null,
+                db.query(true, TABLE_EMPLOYEES, new String[] {COLUMN_EMPLOYEE_ID,
+                                COLUMN_EMPLOYEE_NAME, COLUMN_EMPLOYEE_EMAIL}, COLUMN_EMPLOYEE_ID + "=" + rowId, null,
                         null, null, null, null);
         if (mCursor != null) {
             mCursor.moveToFirst();
@@ -118,13 +156,13 @@ public class DBAdapter {
     }
 
     //---updates a contact---
-    public boolean updateUsers(long rowId, String name, String email, String password, boolean value )
+    public boolean updateUsers(long rowId, String name, String email, String password, String value )
     {
         ContentValues args = new ContentValues();
-        args.put(KEY_NAME, name);
-        args.put(KEY_EMAIL, email);
-        args.put(KEY_PASSWORD, password );
-        args.put( KEY_SUPERVISOR, value );
-        return db.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
+        args.put(COLUMN_EMPLOYEE_NAME, name);
+        args.put(COLUMN_EMPLOYEE_EMAIL, email);
+        args.put(COLUMN_EMPLOYEE_PASSWORD, password );
+        args.put( COLUMN_EMPLOYEE_SUPERVISOR, value );
+        return db.update(TABLE_EMPLOYEES, args, COLUMN_EMPLOYEE_ID + "=" + rowId, null) > 0;
     }
 }

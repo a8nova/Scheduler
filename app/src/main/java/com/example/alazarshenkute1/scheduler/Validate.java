@@ -28,8 +28,7 @@ public class Validate {
         if( !isValidEmail( eml ) ) {
             return false;
         }
-        // check if password is
-        //      - minimum 6 characters and contains atleast one digit
+        // check if passwod is minimum 6 characters
         if( password.length() < 6 ){
             return false;
         }

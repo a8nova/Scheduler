@@ -49,6 +49,7 @@ public class LogInActivity extends Activity {
             }
         }
         dbAdapter.close();
+        cursor.close();
 
 
       //  startActivity(new Intent( this, DashboardActivity.class ) );
