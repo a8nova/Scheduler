@@ -2,7 +2,7 @@
 // Alazar Shenkute
 // 6/19/2015
 // These class is responsible for loging in the user
-package com.example.alazarshenkute1.scheduler;
+package com.example.alazarshenkute1.scheduler.activities;
 
 import android.app.Activity;
 import android.database.Cursor;
@@ -10,6 +10,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.alazarshenkute1.scheduler.DBAdapter;
+import com.example.alazarshenkute1.scheduler.R;
 
 public class LogInActivity extends Activity {
     // Keys for retrieving user data
@@ -41,6 +44,7 @@ public class LogInActivity extends Activity {
         EditText password = (EditText) findViewById( R.id.logInPassword );
         DBAdapter dbAdapter = new DBAdapter( this );
         dbAdapter.open();
+
         Cursor cursor = dbAdapter.getAllUsers();
         if( cursor.moveToFirst() ){
             displayUser( cursor );
@@ -58,6 +62,7 @@ public class LogInActivity extends Activity {
     /** DELETE MEEE */
     // check if records are saved in the database
     private void displayUser(Cursor cursor) {
+
             Toast.makeText(this, "" + cursor.getString(0) + "\n"
                                     + cursor.getString(1) + "\n"
                                     + cursor.getString(2) + "\n"

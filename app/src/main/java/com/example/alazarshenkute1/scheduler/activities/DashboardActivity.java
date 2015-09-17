@@ -1,10 +1,12 @@
-package com.example.alazarshenkute1.scheduler;
+package com.example.alazarshenkute1.scheduler.activities;
 
 
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.example.alazarshenkute1.scheduler.R;
 
 public class DashboardActivity extends ListActivity {
 

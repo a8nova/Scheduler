@@ -9,7 +9,7 @@ public class Schedule {
     private String day;         // thursday
     private String startShift;  // 9:00am
     private String endShift;    // 5:30pm
-    private String date;        // 7/30/15
+    private String date;        //
 
     public Schedule( long id, String day, String startShift, String endShift, String date )
     {
